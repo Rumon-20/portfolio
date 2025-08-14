@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prachurya – Portfolio</title>
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style1.css">
+</head>
+
+<body>
+    <!-- Video Background -->
+    <video autoplay muted loop class="video-background">
+        <source src="/images/rain.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Floating Transparent Pill Navigation -->
+    <nav class="pill-nav" id="navbar" aria-label="Primary">
+        <span class="pill-highlight" id="pillHighlight" aria-hidden="true"></span>
+        <a href="#home" class="pill-tab active">Home</a>
+        <a href="#about" class="pill-tab">About</a>
+        <a href="#skills" class="pill-tab">Skills</a>
+        <a href="#projects" class="pill-tab">Projects</a>
+        <a href="#contact" class="pill-tab">Contact</a>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="section hero reveal">
+        <div class="container hero-content">
+            <div class="hero-avatar">
+                <!-- Replace src with your profile photo -->
+                <img src="/images/9.jpg" alt="Profile Picture">
+            </div>
+
+            <h1 class="hero-title">
+                Hi, I'm <span class="gradient-text">Prachurya</span>
+            </h1>
+
+            <p class="hero-quote">
+                “The only way to do great work is to love what you do. Stay hungry, stay foolish, and never stop
+                learning.”
+                <br><span class="quote-author">– Steve Jobs</span>
+            </p>
+
+            <div class="hero-actions">
+                <a href="#about" class="btn btn-gradient"><i class="fa-solid fa-circle-info"></i> Learn More</a>
+                <a href="#contact" class="btn btn-ghost"><i class="fa-solid fa-paper-plane"></i> Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">About <span class="gradient-text">Me</span></h2>
+
+            <div class="about-grid">
+                <article class="card">
+                    <h3 class="card-title">My Story</h3>
+                    <p>
+                        I'm a passionate full-stack developer with experience creating digital solutions that make a
+                        difference.
+                        My journey began with curiosity about how websites work and evolved into a love for crafting
+                        beautiful,
+                        functional applications.
+                    </p>
+                    <p>
+                        I specialize in modern web technologies and enjoy tackling complex problems with elegant
+                        solutions.
+                        When I'm not coding, I’m learning, experimenting, or sharing knowledge with the community.
+                    </p>
+                </article>
+
+                <aside class="card image-card" aria-hidden="true">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop"
+                        alt="Workspace setup">
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Technical <span class="gradient-text">Skills</span></h2>
+
+            <div class="skills-grid">
+                <div class="skill-card"><i class="fa-brands fa-js"></i>
+                    <p>JavaScript</p>
+                </div>
+                <div class="skill-card"><i class="fa-solid fa-code"></i>
+                    <p>TypeScript</p>
+                </div>
+                <div class="skill-card"><i class="fa-brands fa-react"></i>
+                    <p>React</p>
+                </div>
+                <div class="skill-card"><i class="fa-brands fa-node-js"></i>
+                    <p>Node.js</p>
+                </div>
+                <div class="skill-card"><i class="fa-brands fa-python"></i>
+                    <p>Python</p>
+                </div>
+                <div class="skill-card"><i class="fa-brands fa-java"></i>
+                    <p>Java</p>
+                </div>
+                <div class="skill-card"><i class="fa-brands fa-html5"></i>
+                    <p>HTML5</p>
+                </div>
+                <div class="skill-card"><i class="fa-brands fa-css3-alt"></i>
+                    <p>CSS3</p>
+                </div>
+                <div class="skill-card"><i class="fa-brands fa-git-alt"></i>
+                    <p>Git</p>
+                </div>
+                <div class="skill-card"><i class="fa-brands fa-docker"></i>
+                    <p>Docker</p>
+                </div>
+                <div class="skill-card"><i class="fa-brands fa-aws"></i>
+                    <p>AWS</p>
+                </div>
+                <div class="skill-card"><i class="fa-solid fa-database"></i>
+                    <p>MongoDB</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- project -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">My <span class="gradient-text">Projects</span></h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="images/project1.png" alt="Project 1">
+                    <h3>ID Card Generator</h3>
+                    <p>An ID Card generator for college built with HTML, CSS, and JavaScript.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/username/project1" target="_blank" class="btn">GitHub</a>
+                        <a href="https://project1-demo.com" target="_blank" class="btn-outline">Live Demo</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img src="images/project2.png" alt="Project 2">
+                    <h3>Task Manager App</h3>
+                    <p>A task tracking application built with React and Firebase.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/username/project2" target="_blank" class="btn">GitHub</a>
+                        <a href="https://project2-demo.com" target="_blank" class="btn-outline">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
+
+            <div class="contact-grid">
+                <div class="card contact-form">
+                    <h3 class="card-title">Send Me a Message</h3>
+                    <form>
+                        <label for="name">Your Name</label>
+                        <input id="name" type="text" placeholder="Enter your full name" required>
+
+                        <label for="email">Your Email</label>
+                        <input id="email" type="email" placeholder="Enter your email address" required>
+
+                        <label for="msg">Your Message</label>
+                        <textarea id="msg" rows="6" placeholder="Tell me about your project or inquiry..."
+                            maxlength="500"></textarea>
+
+                        <button type="submit" class="btn btn-gradient"><i class="fa-solid fa-paper-plane"></i> Send
+                            Message</button>
+                    </form>
+                </div>
+
+                <div class="card contact-info">
+                    <h3 class="card-title">Let's Connect</h3>
+                    <p>
+                        I'm always interested in hearing about new opportunities, collaborations, or just having
+                        a conversation about technology and development.
+                    </p>
+
+                    <ul class="info-list">
+                        <li><i class="fa-regular fa-envelope"></i> prachuryapachani@gmail.com</li>
+                        <li><i class="fa-solid fa-location-dot"></i> Assam, India</li>
+                    </ul>
+
+                    <h4 class="sub-heading">Follow Me</h4>
+                    <div class="socials">
+                        <a href="https://www.linkedin.com/in/prachurya-pachani-450114367?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                            aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="https://github.com/Rumon-20" aria-label="GitHub"><i
+                                class="fa-brands fa-github"></i></a>
+                        <a href="https://www.instagram.com/rumonzzz/?igsh=MWg5andmZ2VibjV3ag%3D%3D#"
+                            aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container narrow">
+            <p>&copy; <span id="year"></span> Prachurya. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script1.js"></script>
+</body>
+
+</html>
