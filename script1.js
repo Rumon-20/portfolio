@@ -49,3 +49,28 @@ tabs.forEach(t=>{
 // Position highlight on load & on resize (handles font/layout shifts)
 window.addEventListener('load', () => moveHighlightTo(document.querySelector('.pill-tab.active')));
 window.addEventListener('resize', () => moveHighlightTo(document.querySelector('.pill-tab.active')));
+
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      fetch("https://formsubmit.co/prachuryapachani@gmail.com", {
+        method: "POST",
+        body: new FormData(form),
+      })
+        .then(response => {
+          if (response.ok) {
+            formMessage.innerHTML = "<p style='color: green;'>Thanks! Your message was sent successfully.</p>";
+            form.reset();
+          } else {
+            throw new Error("Form submission failed.");
+          }
+        })
+        .catch(error => {
+          formMessage.innerHTML = "<p style='color: red;'>Oops! Something went wrong. Please try again later.</p>";
+        });
+    });
+  });
