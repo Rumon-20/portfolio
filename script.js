@@ -2,9 +2,9 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // Reveal on scroll
-const revealObserver = new IntersectionObserver((entries)=>{
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
-},{ threshold: 0.18 });
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.18 });
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 // Pill highlight logic (works on click, scroll & resize)
@@ -24,13 +24,13 @@ const navObserver = new IntersectionObserver((entries) => {
 sections.forEach(section => navObserver.observe(section));
 
 // Observe sections to update active link while scrolling
-const activeObserver = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
+const activeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
       setActiveById(entry.target.id);
     }
   });
-},{
+}, {
   // make last section (contact) activate nicely near bottom
   root: null,
   threshold: 0.55,
@@ -39,8 +39,8 @@ const activeObserver = new IntersectionObserver((entries)=>{
 sections.forEach(s => activeObserver.observe(s));
 
 // Click -> set active immediately (before scroll finishes)
-tabs.forEach(t=>{
-  t.addEventListener('click', (e)=>{
+tabs.forEach(t => {
+  t.addEventListener('click', (e) => {
     // let anchor work (smooth scroll via CSS), but update state now
     setActiveById(t.getAttribute('href').slice(1));
   });
