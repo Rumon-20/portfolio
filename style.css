@@ -177,6 +177,7 @@ section {
     padding: 18px 22px;
     border-radius: var(--radius);
     background: rgba(255, 255, 255, .06);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--border);
 }
 
