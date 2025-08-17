@@ -111,6 +111,21 @@ section {
     white-space: nowrap;
 }
 
+.pill-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;         /* same height as nav */
+  border-radius: 50px;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 0;           /* stay behind links */
+}
+
+.pill-tab {
+  position: relative;
+  z-index: 1;
+}
+
 .pill-tab {
     padding: 10px 20px;
     border-radius: 50px;

@@ -11,38 +11,59 @@ document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 // Active nav highlight
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.pill-tab');
+const pillHighlight = document.getElementById('pillHighlight');
 
-const navObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navLinks.forEach(link => link.classList.remove('active'));
-      const activeLink = document.querySelector(`.pill-tab[href="#${entry.target.id}"]`);
-      if (activeLink) activeLink.classList.add('active');
+// Move pill highlight under active link
+function moveHighlightTo(tab) {
+  if (!tab) return;
+  const rect = tab.getBoundingClientRect();
+  const navRect = tab.parentElement.getBoundingClientRect();
+  pillHighlight.style.width = `${rect.width}px`;
+  pillHighlight.style.height = `${rect.height}px`;
+  pillHighlight.style.transform = `translateX(${rect.left - navRect.left}px)`;
+}
+
+// Set active tab
+function setActiveById(id) {
+  navLinks.forEach(link => link.classList.remove('active'));
+  const activeLink = document.querySelector(`.pill-tab[href="#${id}"]`);
+  if (activeLink) {
+    activeLink.classList.add('active');
+    moveHighlightTo(activeLink);
+  }
+}
+
+// Check which section is closest to top of viewport
+function updateActiveOnScroll() {
+  let closest = null;
+  let minDistance = window.innerHeight;
+
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    const distance = Math.abs(rect.top - 80); // 80px offset for navbar height
+    if (distance < minDistance) {
+      minDistance = distance;
+      closest = section;
     }
   });
-}, { threshold: 0.6 });
-sections.forEach(section => navObserver.observe(section));
 
-// Observe sections to update active link while scrolling
-const activeObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      setActiveById(entry.target.id);
-    }
-  });
-}, {
-  // make last section (contact) activate nicely near bottom
-  root: null,
-  threshold: 0.55,
-  rootMargin: "-25% 0px -40% 0px"
+  if (closest) setActiveById(closest.id);
+}
+
+window.addEventListener('scroll', updateActiveOnScroll);
+window.addEventListener('load', () => {
+  setActiveById(sections[0].id); // set Home initially
 });
-sections.forEach(s => activeObserver.observe(s));
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.pill-tab.active');
+  moveHighlightTo(active);
+});
 
-// Click -> set active immediately (before scroll finishes)
-tabs.forEach(t => {
-  t.addEventListener('click', (e) => {
-    // let anchor work (smooth scroll via CSS), but update state now
-    setActiveById(t.getAttribute('href').slice(1));
+// Click -> update immediately
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    const id = link.getAttribute('href').slice(1);
+    setActiveById(id);
   });
 });
 
