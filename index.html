@@ -18,10 +18,10 @@
 
 <body>
     <!-- Video Background -->
-<video autoplay muted loop playsinline class="video-background">
-  <source src="./images/rain.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="./images/rain.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
     <!-- Floating Transparent Pill Navigation -->
     <nav class="pill-nav" id="navbar" aria-label="Primary">
@@ -152,7 +152,7 @@
             <div class="contact-grid">
                 <div class="card contact-form">
                     <h3 class="card-title">Send Me a Message</h3>
-                    <form>
+                    <form id="contactForm" method="POST">
                         <label for="name">Your Name</label>
                         <input id="name" type="text" placeholder="Enter your full name" required>
 
@@ -169,6 +169,7 @@
                         <button type="submit" class="btn btn-gradient"><i class="fa-solid fa-paper-plane"></i> Send
                             Message</button>
                     </form>
+                    <div id="formMessage"></div>
                 </div>
 
                 <div class="card contact-info">
