@@ -1,450 +1,321 @@
-// ===== GSAP & Lenis Setup =====
+// ===== Initialize GSAP & ScrollTrigger =====
 gsap.registerPlugin(ScrollTrigger);
 
-// Initialize Lenis smooth scroll
-const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    orientation: 'vertical',
-    gestureOrientation: 'vertical',
-    smoothWheel: true,
-    wheelMultiplier: 1,
-    smoothTouch: false,
-    touchMultiplier: 2,
-    infinite: false,
-});
-
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
+// ===== Utility Functions =====
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
-requestAnimationFrame(raf);
+// ===== Navbar Scroll Effect =====
+const navbar = document.getElementById('navbar');
 
-// Connect Lenis with GSAP ScrollTrigger
-lenis.on('scroll', ScrollTrigger.update);
+window.addEventListener('scroll', debounce(() => {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+}, 10));
 
-gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-});
+// ===== Navigation Active Link =====
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-link');
 
-gsap.ticker.lagSmoothing(0);
-
-// ===== Page Loader Animation =====
-window.addEventListener('load', () => {
-    const loader = document.querySelector('.page-loader');
+function updateActiveLink() {
+    let current = '';
     
-    gsap.to(loader, {
-        opacity: 0,
-        duration: 0.6,
-        delay: 2.2,
-        ease: 'power2.inOut',
-        onComplete: () => {
-            loader.classList.add('loaded');
-            initAnimations();
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= sectionTop - 100) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === current) {
+            link.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', debounce(updateActiveLink, 10));
+
+// Smooth scroll for nav links
+navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').slice(1);
+        const targetSection = document.getElementById(targetId);
+        
+        if (targetSection) {
+            window.scrollTo({
+                top: targetSection.offsetTop - 80,
+                behavior: 'smooth'
+            });
         }
     });
 });
 
-// ===== Custom Cursor =====
-const cursor = document.querySelector('.cursor');
-const cursorFollower = document.querySelector('.cursor-follower');
-
-let mouseX = 0;
-let mouseY = 0;
-let cursorX = 0;
-let cursorY = 0;
-let followerX = 0;
-let followerY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+// ===== Page Load Animations =====
+window.addEventListener('load', () => {
+    initAnimations();
 });
 
-// Smooth cursor movement
-function animateCursor() {
-    // Cursor follows immediately
-    cursorX += (mouseX - cursorX) * 0.9;
-    cursorY += (mouseY - cursorY) * 0.9;
-    
-    // Follower lags behind
-    followerX += (mouseX - followerX) * 0.15;
-    followerY += (mouseY - followerY) * 0.15;
-    
-    cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-    cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px)`;
-    
-    requestAnimationFrame(animateCursor);
-}
-
-animateCursor();
-
-// ===== Magnetic Effect =====
-const magneticElements = document.querySelectorAll('[data-magnetic]');
-
-magneticElements.forEach(element => {
-    element.addEventListener('mousemove', (e) => {
-        const rect = element.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        gsap.to(element, {
-            x: x * 0.3,
-            y: y * 0.3,
-            duration: 0.3,
-            ease: 'power2.out'
-        });
-    });
-    
-    element.addEventListener('mouseleave', () => {
-        gsap.to(element, {
-            x: 0,
-            y: 0,
-            duration: 0.5,
-            ease: 'elastic.out(1, 0.5)'
-        });
-    });
-});
-
-// Magnetic effect for skill cards
-const skillCards = document.querySelectorAll('[data-magnetic-skill]');
-
-skillCards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        gsap.to(card, {
-            x: x * 0.2,
-            y: y * 0.2,
-            duration: 0.4,
-            ease: 'power2.out'
-        });
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-            x: 0,
-            y: 0,
-            duration: 0.6,
-            ease: 'elastic.out(1, 0.3)'
-        });
-    });
-});
-
-// ===== Animation Initialization =====
 function initAnimations() {
     
-    // Hero Title Word Animation
+    // Hero Content Animation
+    gsap.to('.hero-content', {
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power2.out'
+    });
+    
+    // Hero Title Words Animation
     gsap.to('.hero-title .word', {
         y: 0,
         opacity: 1,
-        duration: 1,
-        stagger: 0.15,
-        ease: 'power4.out',
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power3.out',
         delay: 0.2
     });
     
-    // Hero Avatar Animation
-    gsap.from('.hero-avatar', {
-        scale: 0,
+    // Hero Text Animation
+    gsap.from('.hero-text', {
+        y: 30,
         opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        delay: 0.6
+    });
+    
+    // Hero CTA Animation
+    gsap.from('.hero-cta .btn', {
+        y: 30,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.15,
+        ease: 'power2.out',
+        delay: 0.9
+    });
+    
+    // Hero Image Animation
+    gsap.to('.hero-image', {
+        opacity: 1,
+        duration: 1,
+        ease: 'power2.out',
+        delay: 0.4
+    });
+    
+    gsap.from('.image-frame', {
+        scale: 0.8,
+        rotation: -5,
         duration: 1.2,
         ease: 'elastic.out(1, 0.6)',
-        delay: 0.3
+        delay: 0.5
     });
     
-    // Hero Quote Animation
-    gsap.from('.hero-quote', {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        delay: 0.8
+    // Section Headers Animation
+    gsap.utils.toArray('.section-header').forEach(header => {
+        gsap.from(header.children, {
+            scrollTrigger: {
+                trigger: header,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: 'power2.out'
+        });
     });
     
-    // Hero Buttons Animation
-    gsap.from('.hero-actions .btn', {
+    // About Section Animation
+    gsap.from('.about-text p', {
+        scrollTrigger: {
+            trigger: '.about-content',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+        },
         y: 30,
         opacity: 0,
         duration: 0.8,
         stagger: 0.15,
-        ease: 'power3.out',
-        delay: 1.2
+        ease: 'power2.out'
     });
     
-    // Scroll Indicator Animation
-    gsap.from('.scroll-indicator', {
+    gsap.from('.about-image', {
+        scrollTrigger: {
+            trigger: '.about-content',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+        },
+        x: 50,
         opacity: 0,
-        y: -20,
         duration: 1,
         ease: 'power2.out',
-        delay: 1.5
+        delay: 0.3
     });
     
-    // Section Title Animations
-    gsap.utils.toArray('.section-title').forEach(title => {
-        const words = title.querySelectorAll('.title-word');
-        
-        gsap.from(words, {
+    // Skills Animation - Staggered Reveal
+    const skillItems = gsap.utils.toArray('.skill-item');
+    
+    skillItems.forEach((item, index) => {
+        gsap.to(item, {
             scrollTrigger: {
-                trigger: title,
-                start: 'top 80%',
-                end: 'top 20%',
-                toggleActions: 'play none none reverse',
+                trigger: '.skills-grid',
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
             },
-            y: 100,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.1,
-            ease: 'power4.out'
+            y: 0,
+            opacity: 1,
+            duration: 0.6,
+            delay: index * 0.05,
+            ease: 'power2.out'
         });
     });
     
-    // Card Animations with Parallax
-    gsap.utils.toArray('.card').forEach((card, index) => {
-        gsap.from(card, {
+    // Projects Animation
+    const projectCards = gsap.utils.toArray('.project-card');
+    
+    projectCards.forEach((card, index) => {
+        gsap.to(card, {
             scrollTrigger: {
                 trigger: card,
-                start: 'top 85%',
-                end: 'top 20%',
-                toggleActions: 'play none none reverse',
-            },
-            y: 80,
-            opacity: 0,
-            duration: 1,
-            ease: 'power3.out',
-            delay: index * 0.15
-        });
-    });
-    
-    // Skill Cards Stagger Animation
-    gsap.from('.skill-card', {
-        scrollTrigger: {
-            trigger: '.skills-grid',
-            start: 'top 75%',
-            end: 'top 20%',
-            toggleActions: 'play none none reverse',
-        },
-        y: 60,
-        opacity: 0,
-        scale: 0.8,
-        duration: 0.8,
-        stagger: {
-            amount: 1,
-            from: 'start',
-            grid: 'auto'
-        },
-        ease: 'back.out(1.4)'
-    });
-    
-    // Project Cards Animation
-    gsap.utils.toArray('.project-card').forEach((project, index) => {
-        gsap.from(project, {
-            scrollTrigger: {
-                trigger: project,
                 start: 'top 80%',
-                end: 'top 20%',
-                toggleActions: 'play none none reverse',
+                toggleActions: 'play none none reverse'
             },
-            y: 100,
-            opacity: 0,
-            rotation: index % 2 === 0 ? 5 : -5,
-            duration: 1.2,
-            ease: 'power4.out',
-            delay: index * 0.2
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            delay: index * 0.2,
+            ease: 'power2.out'
         });
     });
     
-    // Image Parallax Effect
-    gsap.utils.toArray('.image-card img').forEach(img => {
-        gsap.to(img, {
-            scrollTrigger: {
-                trigger: img,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: 1,
-            },
-            y: -50,
-            ease: 'none'
-        });
+    // Contact Section Animation
+    gsap.from('.contact-info > *', {
+        scrollTrigger: {
+            trigger: '.contact-content',
+            start: 'top 75%',
+            toggleActions: 'play none none reverse'
+        },
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: 'power2.out'
     });
     
-    // Contact Form Elements Animation
-    gsap.from('.contact-form input, .contact-form textarea, .contact-form button', {
+    gsap.from('.form-group', {
         scrollTrigger: {
             trigger: '.contact-form',
             start: 'top 75%',
-            end: 'top 20%',
-            toggleActions: 'play none none reverse',
+            toggleActions: 'play none none reverse'
         },
-        x: -50,
+        x: 30,
         opacity: 0,
         duration: 0.8,
         stagger: 0.1,
-        ease: 'power3.out'
+        ease: 'power2.out',
+        delay: 0.2
     });
     
-    // Social Icons Animation
-    gsap.from('.socials a', {
+    // Image Parallax Effect
+    gsap.to('.about-image img', {
         scrollTrigger: {
-            trigger: '.socials',
-            start: 'top 85%',
-            end: 'top 20%',
-            toggleActions: 'play none none reverse',
-        },
-        scale: 0,
-        opacity: 0,
-        rotation: 360,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'back.out(2)'
-    });
-}
-
-// ===== Footer Year =====
-document.getElementById('year').textContent = new Date().getFullYear();
-
-// ===== Pill Navigation Highlight =====
-const sections = document.querySelectorAll('section');
-const navLinks = document.querySelectorAll('.pill-tab');
-const pillHighlight = document.getElementById('pillHighlight');
-
-function moveHighlightTo(tab) {
-    if (!tab) return;
-    const rect = tab.getBoundingClientRect();
-    const navRect = tab.parentElement.getBoundingClientRect();
-    pillHighlight.style.width = `${rect.width}px`;
-    pillHighlight.style.height = `${rect.height}px`;
-    pillHighlight.style.transform = `translateX(${rect.left - navRect.left}px)`;
-}
-
-function setActiveById(id) {
-    navLinks.forEach(link => link.classList.remove('active'));
-    const activeLink = document.querySelector(`.pill-tab[href="#${id}"]`);
-    if (activeLink) {
-        activeLink.classList.add('active');
-        moveHighlightTo(activeLink);
-    }
-}
-
-function updateActiveOnScroll() {
-    let closest = null;
-    let minDistance = window.innerHeight;
-
-    sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        const distance = Math.abs(rect.top - 80);
-        if (distance < minDistance) {
-            minDistance = distance;
-            closest = section;
-        }
-    });
-
-    if (closest) setActiveById(closest.id);
-}
-
-window.addEventListener('scroll', updateActiveOnScroll);
-window.addEventListener('load', () => {
-    setActiveById(sections[0].id);
-});
-window.addEventListener('resize', () => {
-    const active = document.querySelector('.pill-tab.active');
-    moveHighlightTo(active);
-});
-
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const id = link.getAttribute('href').slice(1);
-        const target = document.getElementById(id);
-        
-        if (target) {
-            lenis.scrollTo(target, {
-                offset: -80,
-                duration: 1.5,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
-            });
-        }
-        
-        setActiveById(id);
-    });
-});
-
-// ===== Contact Form =====
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById('contactForm');
-    const formMessage = document.getElementById('formMessage');
-
-    form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        // Animate button
-        const submitBtn = form.querySelector('button[type="submit"]');
-        gsap.to(submitBtn, {
-            scale: 0.95,
-            duration: 0.1,
-            yoyo: true,
-            repeat: 1
-        });
-
-        fetch("https://formsubmit.co/prachuryapachani@gmail.com", {
-            method: "POST",
-            body: new FormData(form),
-        })
-        .then(response => {
-            if (response.ok) {
-                formMessage.innerHTML = "<p style='color: #9d4edd; font-weight: 600;'>✓ Thanks! Your message was sent successfully.</p>";
-                form.reset();
-                
-                // Animate success message
-                gsap.from(formMessage.querySelector('p'), {
-                    y: 20,
-                    opacity: 0,
-                    duration: 0.6,
-                    ease: 'power3.out'
-                });
-            } else {
-                throw new Error("Form submission failed.");
-            }
-        })
-        .catch(error => {
-            formMessage.innerHTML = "<p style='color: #f72585; font-weight: 600;'>✗ Oops! Something went wrong. Please try again later.</p>";
-            
-            // Animate error message
-            gsap.from(formMessage.querySelector('p'), {
-                y: 20,
-                opacity: 0,
-                duration: 0.6,
-                ease: 'power3.out'
-            });
-        });
-    });
-});
-
-// ===== Parallax Elements with data-scroll =====
-gsap.utils.toArray('[data-scroll]').forEach(element => {
-    const speed = element.dataset.scrollSpeed || 0.5;
-    
-    gsap.to(element, {
-        scrollTrigger: {
-            trigger: element,
+            trigger: '.about-image',
             start: 'top bottom',
             end: 'bottom top',
-            scrub: true,
+            scrub: 1
         },
-        y: (i, target) => {
-            const height = target.offsetHeight;
-            return -height * speed;
-        },
+        y: -30,
         ease: 'none'
     });
+}
+
+// ===== Contact Form =====
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Button loading state
+            submitBtn.innerHTML = '<span>Sending...</span>';
+            submitBtn.disabled = true;
+            
+            fetch('https://formsubmit.co/prachuryapachani@gmail.com', {
+                method: 'POST',
+                body: new FormData(form)
+            })
+            .then(response => {
+                if (response.ok) {
+                    formMessage.style.background = 'rgba(99, 102, 241, 0.1)';
+                    formMessage.style.border = '1px solid var(--primary)';
+                    formMessage.style.color = 'var(--primary)';
+                    formMessage.innerHTML = '<p>✓ Message sent successfully! I\'ll get back to you soon.</p>';
+                    form.reset();
+                    
+                    // Animate success message
+                    gsap.from(formMessage, {
+                        y: 20,
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    });
+                } else {
+                    throw new Error('Failed to send');
+                }
+            })
+            .catch(error => {
+                formMessage.style.background = 'rgba(239, 68, 68, 0.1)';
+                formMessage.style.border = '1px solid #ef4444';
+                formMessage.style.color = '#ef4444';
+                formMessage.innerHTML = '<p>✗ Oops! Something went wrong. Please try again.</p>';
+                
+                // Animate error message
+                gsap.from(formMessage, {
+                    y: 20,
+                    opacity: 0,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            })
+            .finally(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
+        });
+    }
 });
 
+// ===== Footer Year =====
+const yearElement = document.getElementById('year');
+if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+}
+
 // ===== Button Hover Effects =====
-document.querySelectorAll('.btn, .btn-outline').forEach(btn => {
+const buttons = document.querySelectorAll('.btn');
+
+buttons.forEach(btn => {
     btn.addEventListener('mouseenter', () => {
         gsap.to(btn, {
             scale: 1.05,
@@ -462,78 +333,45 @@ document.querySelectorAll('.btn, .btn-outline').forEach(btn => {
     });
 });
 
-// ===== Video Background Fade In =====
-gsap.from('.video-background', {
-    opacity: 0,
-    duration: 2,
-    ease: 'power2.inOut',
-    delay: 0.5
-});
+// ===== Smooth Reveal for Cards =====
+const cards = document.querySelectorAll('.skill-item, .project-card, .contact-item');
 
-// ===== Advanced Scroll Effects =====
-
-// Fade in scroll indicator on hero
-ScrollTrigger.create({
-    trigger: '.hero',
-    start: 'top top',
-    end: 'bottom top',
-    onLeave: () => {
-        gsap.to('.scroll-indicator', {
-            opacity: 0,
-            duration: 0.3
+cards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+            y: -5,
+            duration: 0.3,
+            ease: 'power2.out'
         });
-    },
-    onEnterBack: () => {
-        gsap.to('.scroll-indicator', {
-            opacity: 0.7,
-            duration: 0.3
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+            y: 0,
+            duration: 0.3,
+            ease: 'power2.out'
         });
-    }
-});
-
-// Navbar background on scroll
-ScrollTrigger.create({
-    trigger: 'body',
-    start: 'top -50',
-    end: 'bottom bottom',
-    onEnter: () => {
-        gsap.to('.pill-nav', {
-            background: 'rgba(10, 0, 21, 0.8)',
-            duration: 0.3
-        });
-    },
-    onLeaveBack: () => {
-        gsap.to('.pill-nav', {
-            background: 'rgba(10, 0, 21, 0.6)',
-            duration: 0.3
-        });
-    }
-});
-
-// Smooth reveal for elements as they enter viewport
-const revealElements = gsap.utils.toArray('.reveal');
-revealElements.forEach(element => {
-    gsap.from(element, {
-        scrollTrigger: {
-            trigger: element,
-            start: 'top 90%',
-            end: 'top 20%',
-            toggleActions: 'play none none reverse',
-        },
-        y: 60,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out'
     });
 });
 
-// ===== Disable animations on mobile if preferred =====
-const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-if (mediaQuery.matches) {
-    // Disable all GSAP animations
-    gsap.globalTimeline.clear();
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+// ===== Optimize Performance =====
+// Reduce animations on mobile
+if (window.innerWidth < 768) {
+    ScrollTrigger.config({
+        limitCallbacks: true,
+        syncInterval: 150
+    });
 }
 
-console.log('%c🚀 Portfolio loaded with award-winning animations!', 'color: #9d4edd; font-size: 16px; font-weight: bold;');
+// Pause animations when tab is not visible
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        gsap.globalTimeline.pause();
+    } else {
+        gsap.globalTimeline.resume();
+    }
+});
+
+// ===== Console Message =====
+console.log('%c✨ Portfolio Loaded Successfully!', 'color: #6366f1; font-size: 16px; font-weight: bold;');
+console.log('%cDesigned & Developed by Prachurya', 'color: #a1a1aa; font-size: 12px;');
