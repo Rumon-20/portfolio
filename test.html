@@ -9,127 +9,105 @@
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Upgraded typography: Playfair Display for elegance + DM Sans for body -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 
-    <!-- GSAP & Lenis for smooth scroll -->
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
     <!-- Video Background -->
     <video autoplay muted loop playsinline class="video-background">
         <source src="./images/rain.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
-    <!-- Page Loader -->
-    <div class="page-loader">
-        <div class="loader-content">
-            <div class="loader-text">
-                <span class="loader-letter">P</span>
-                <span class="loader-letter">R</span>
-                <span class="loader-letter">A</span>
-                <span class="loader-letter">C</span>
-                <span class="loader-letter">H</span>
-                <span class="loader-letter">U</span>
-                <span class="loader-letter">R</span>
-                <span class="loader-letter">Y</span>
-                <span class="loader-letter">A</span>
-            </div>
-            <div class="loader-progress">
-                <div class="loader-progress-bar"></div>
+    <!-- Grain Overlay -->
+    <div class="grain-overlay"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <a href="#home" class="nav-logo">Prachurya</a>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
         </div>
-    </div>
-
-    <!-- Floating Transparent Pill Navigation -->
-    <nav class="pill-nav" id="navbar" aria-label="Primary">
-        <span class="pill-highlight" id="pillHighlight" aria-hidden="true"></span>
-        <a href="#home" class="pill-tab active" data-magnetic>Home</a>
-        <a href="#about" class="pill-tab" data-magnetic>About</a>
-        <a href="#skills" class="pill-tab" data-magnetic>Skills</a>
-        <a href="#projects" class="pill-tab" data-magnetic>Projects</a>
-        <a href="#contact" class="pill-tab" data-magnetic>Contact</a>
     </nav>
 
     <!-- Hero -->
-    <section id="home" class="section hero">
-        <div class="container hero-content">
-            <div class="hero-avatar" data-scroll data-scroll-speed="0.5">
-                <img src="./images/9.jpg" alt="Profile Picture">
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-label">Creative Developer</div>
+                <h1 class="hero-title">
+                    <span class="line">
+                        <span class="word">Hi,</span>
+                        <span class="word">I'm</span>
+                    </span>
+                    <span class="line">
+                        <span class="word highlight">Prachurya</span>
+                    </span>
+                </h1>
+                <p class="hero-text">
+                    CS student passionate about creating digital experiences that make a difference.
+                    Specializing in modern web technologies and elegant solutions.
+                </p>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>View Work</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <span>Get In Touch</span>
+                    </a>
+                </div>
             </div>
-
-            <h1 class="hero-title">
-                <span class="title-line">
-                    <span class="word">Hi,</span>
-                    <span class="word">I'm</span>
-                </span>
-                <span class="title-line">
-                    <span class="word gradient-text">Prachurya</span>
-                </span>
-            </h1>
-
-            <p class="hero-quote" data-scroll data-scroll-speed="0.3">
-                <span class="quote-text">"The only way to do great work is to love what you do. Stay hungry, stay foolish, and never stop learning."</span>
-                <br><span class="quote-author">— Steve Jobs</span>
-            </p>
-
-            <div class="hero-actions" data-scroll data-scroll-speed="0.2">
-                <a href="#about" class="btn btn-gradient" data-magnetic><i class="fa-solid fa-circle-info"></i> Learn More</a>
-                <a href="#contact" class="btn btn-ghost" data-magnetic><i class="fa-solid fa-paper-plane"></i> Get In Touch</a>
+            <div class="hero-image">
+                <div class="image-frame">
+                    <img src="./images/9.jpg" alt="Prachurya">
+                </div>
             </div>
-        </div>
-
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator" data-scroll data-scroll-speed="0.8">
-            <div class="scroll-line"></div>
-            <span class="scroll-text">Scroll to explore</span>
         </div>
     </section>
 
     <!-- About -->
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title" data-scroll>
-                <span class="title-word">About</span>
-                <span class="title-word gradient-text">Me</span>
-            </h2>
-
-            <div class="about-grid">
-                <article class="card" data-scroll data-scroll-speed="0.5">
-                    <h3 class="card-title">My Story</h3>
-                    <p>
-                        I'm a CS student who is passionate web developer with experience creating digital solutions that make a
-                        difference.
-                        My journey began with curiosity about how websites work and evolved into a love for crafting
-                        beautiful,
-                        functional applications.
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h2 class="section-title">About Me</h2>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="large-text">
+                        I'm a CS student and passionate web developer with experience creating 
+                        digital solutions that make a difference.
                     </p>
                     <p>
-                        I specialize in modern web technologies and enjoy tackling complex problems with elegant
-                        solutions.
-                        When I'm not coding, I'm learning, experimenting, or sharing knowledge with the community.
+                        My journey began with curiosity about how websites work and evolved into 
+                        a love for crafting beautiful, functional applications. I specialize in 
+                        modern web technologies and enjoy tackling complex problems with elegant solutions.
                     </p>
-                </article>
-
-                <aside class="card image-card" aria-hidden="true" data-scroll data-scroll-speed="0.7">
-                    <div class="image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop"
-                            alt="Workspace setup">
-                    </div>
-                </aside>
+                    <p>
+                        When I'm not coding, I'm learning, experimenting, or sharing knowledge 
+                        with the community.
+                    </p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop" alt="Workspace">
+                </div>
             </div>
         </div>
     </section>
@@ -137,59 +115,83 @@
     <!-- Skills -->
     <section id="skills" class="section">
         <div class="container">
-            <h2 class="section-title" data-scroll>
-                <span class="title-word">Technical</span>
-                <span class="title-word gradient-text">Skills</span>
-            </h2>
-
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Technical Skills</h2>
+            </div>
+            
             <div class="skills-grid">
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-c-plain colored"></i>
-                    <p>C</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-c-plain colored"></i>
+                    </div>
+                    <span class="skill-name">C</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-cplusplus-plain colored"></i>
-                    <p>C++</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-cplusplus-plain colored"></i>
+                    </div>
+                    <span class="skill-name">C++</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-python-plain colored"></i>
-                    <p>Python</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-python-plain colored"></i>
+                    </div>
+                    <span class="skill-name">Python</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-mysql-plain colored"></i>
-                    <p>MySQL</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-mysql-plain colored"></i>
+                    </div>
+                    <span class="skill-name">MySQL</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-javascript-plain colored"></i>
-                    <p>JavaScript</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-javascript-plain colored"></i>
+                    </div>
+                    <span class="skill-name">JavaScript</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-html5-plain colored"></i>
-                    <p>HTML5</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-html5-plain colored"></i>
+                    </div>
+                    <span class="skill-name">HTML5</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-css3-plain colored"></i>
-                    <p>CSS3</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-css3-plain colored"></i>
+                    </div>
+                    <span class="skill-name">CSS3</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-git-plain colored"></i>
-                    <p>Git</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-git-plain colored"></i>
+                    </div>
+                    <span class="skill-name">Git</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-github-plain colored"></i>
-                    <p>GitHub</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-github-original"></i>
+                    </div>
+                    <span class="skill-name">GitHub</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-figma-plain colored"></i>
-                    <p>Figma</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-figma-plain colored"></i>
+                    </div>
+                    <span class="skill-name">Figma</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="devicon-matlab-plain colored"></i>
-                    <p>Matlabs</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="devicon-matlab-plain colored"></i>
+                    </div>
+                    <span class="skill-name">MATLAB</span>
                 </div>
-                <div class="skill-card" data-magnetic-skill>
-                    <i class="fa-brands fa-microsoft"></i>
-                    <p>Microsoft Office</p>
+                <div class="skill-item">
+                    <div class="skill-icon">
+                        <i class="fa-brands fa-microsoft"></i>
+                    </div>
+                    <span class="skill-name">MS Office</span>
                 </div>
             </div>
         </div>
@@ -198,44 +200,67 @@
     <!-- Projects -->
     <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title" data-scroll>
-                <span class="title-word">My</span>
-                <span class="title-word gradient-text">Projects</span>
-            </h2>
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Featured Projects</h2>
+            </div>
+            
             <div class="projects-grid">
-                <div class="project-card" data-scroll data-scroll-speed="0.4">
-                    <div class="project-image-wrapper">
-                        <img src="images/project1.png" alt="Project 1">
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="images/project1.png" alt="ID Card Generator">
                         <div class="project-overlay">
-                            <span class="view-project">View Project</span>
+                            <span class="view-text">View Project</span>
                         </div>
                     </div>
-                    <div class="project-content">
-                        <h3>ID Card Generator</h3>
-                        <p>An ID Card generator for college built with HTML, CSS, and JavaScript.</p>
+                    <div class="project-info">
+                        <h3 class="project-title">ID Card Generator</h3>
+                        <p class="project-desc">An ID Card generator for college built with HTML, CSS, and JavaScript.</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
                         <div class="project-links">
-                            <a href="https://github.com/username/project1" target="_blank" class="btn" data-magnetic>GitHub</a>
-                            <a href="https://project1-demo.com" target="_blank" class="btn-outline" data-magnetic>Live Demo</a>
+                            <a href="https://github.com/username/project1" target="_blank" class="project-link">
+                                <i class="fa-brands fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="https://project1-demo.com" target="_blank" class="project-link">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                <span>Live Demo</span>
+                            </a>
                         </div>
                     </div>
-                </div>
+                </article>
 
-                <div class="project-card" data-scroll data-scroll-speed="0.6">
-                    <div class="project-image-wrapper">
-                        <img src="images/project2.png" alt="Project 2">
+                <article class="project-card">
+                    <div class="project-image">
+                        <img src="images/project2.png" alt="Department Webpage">
                         <div class="project-overlay">
-                            <span class="view-project">View Project</span>
+                            <span class="view-text">View Project</span>
                         </div>
                     </div>
-                    <div class="project-content">
-                        <h3>Department Webpage</h3>
-                        <p>A responsive website for my department.</p>
+                    <div class="project-info">
+                        <h3 class="project-title">Department Webpage</h3>
+                        <p class="project-desc">A responsive website for my department with modern design.</p>
+                        <div class="project-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                            <span class="tag">Responsive</span>
+                        </div>
                         <div class="project-links">
-                            <a href="https://github.com/username/project2" target="_blank" class="btn" data-magnetic>GitHub</a>
-                            <a href="https://project2-demo.com" target="_blank" class="btn-outline" data-magnetic>Live Demo</a>
+                            <a href="https://github.com/username/project2" target="_blank" class="project-link">
+                                <i class="fa-brands fa-github"></i>
+                                <span>Code</span>
+                            </a>
+                            <a href="https://project2-demo.com" target="_blank" class="project-link">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                <span>Live Demo</span>
+                            </a>
                         </div>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
@@ -243,66 +268,74 @@
     <!-- Contact -->
     <section id="contact" class="section">
         <div class="container">
-            <h2 class="section-title" data-scroll>
-                <span class="title-word">Get In</span>
-                <span class="title-word gradient-text">Touch</span>
-            </h2>
-
-            <div class="contact-grid">
-                <div class="card contact-form" data-scroll data-scroll-speed="0.3">
-                    <h3 class="card-title">Send Me a Message</h3>
-                    <form id="contactForm" method="POST">
-                        <label for="name">Your Name</label>
-                        <input id="name" type="text" placeholder="Enter your full name" required>
-
-                        <label for="email">Your Email</label>
-                        <input id="email" type="email" placeholder="Enter your email address" required>
-
-                        <label for="msg">Your Message</label>
-                        <textarea id="msg" rows="6" placeholder="Tell me about your project or inquiry..."
-                            maxlength="500"></textarea>
-
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
-
-                        <button type="submit" class="btn btn-gradient" data-magnetic><i class="fa-solid fa-paper-plane"></i> Send
-                            Message</button>
-                    </form>
-                    <div id="formMessage"></div>
-                </div>
-
-                <div class="card contact-info" data-scroll data-scroll-speed="0.5">
-                    <h3 class="card-title">Let's Connect</h3>
-                    <p>
-                        I'm always interested in hearing about new opportunities, collaborations, or just having
-                        a conversation about technology and development.
+            <div class="section-header">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Get In Touch</h2>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <p class="contact-text">
+                        I'm always interested in hearing about new opportunities, collaborations, 
+                        or just having a conversation about technology and development.
                     </p>
-
-                    <ul class="info-list">
-                        <li><i class="fa-regular fa-envelope"></i> prachuryapachani@gmail.com</li>
-                        <li><i class="fa-solid fa-location-dot"></i> Assam, India</li>
-                    </ul>
-
-                    <h4 class="sub-heading">Follow Me</h4>
-                    <div class="socials">
-                        <a href="" aria-label="LinkedIn" data-magnetic><i class="fa-brands fa-linkedin-in"></i></a>
-                        <a href="" aria-label="GitHub" data-magnetic><i class="fa-brands fa-github"></i></a>
-                        <a href="" aria-label="Instagram" data-magnetic><i class="fa-brands fa-instagram"></i></a>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fa-regular fa-envelope"></i>
+                            <span>prachuryapachani@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>Assam, India</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="LinkedIn">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
                     </div>
                 </div>
+                
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <button type="submit" class="btn btn-primary">
+                        <span>Send Message</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                    <div id="formMessage"></div>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container narrow">
-            <p>&copy; <span id="year"></span> Prachurya's Portfolio. All Rights Reserved.</p>
+        <div class="container">
+            <p>&copy; <span id="year"></span> Prachurya. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="test.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
